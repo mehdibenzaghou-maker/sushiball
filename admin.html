@@ -122,7 +122,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);min-
   <div class="dash-body">
     <div class="setup-notice">
       <h4><i class="fas fa-wrench"></i> Configuration Firebase</h4>
-      <p>Pour activer ce panneau, créez un projet Firebase et remplacez la config dans <code>firebaseConfig</code> en bas de ce fichier. Activez <strong>Authentication</strong> (Email/Password) et <strong>Firestore Database</strong>. Créez un compte admin dans Firebase Auth, puis connectez-vous ici.</p>
+      <p>Pour activer ce panneau, créez un projet Firebase et remplacez la config dans <code>firebaseConfig</code> en bas de ce fichier. Activez <strong>Authentication</strong> (Email/Password) et <strong>Firestore Database</strong>. Pas besoin de Storage — les photos sont ajout&eacute;es par lien URL. Cr&eacute;ez un compte admin dans Firebase Auth, puis connectez-vous ici.</p>
     </div>
 
     <div id="sectionsContainer"></div>
@@ -138,7 +138,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);min-
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 
 <script>
 /* ═══════════════════════════════════════════════════════
@@ -154,7 +153,7 @@ const firebaseConfig = {
   measurementId: "G-7N5F8C10RX"
 };
 
-let app, auth, db, storage;
+let app, auth, db;
 let menuData = {};
 
 // Default menu structure (used to seed Firestore on first run)
@@ -194,7 +193,6 @@ function initFirebase() {
     app = firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();
     db = firebase.firestore();
-    storage = firebase.storage();
     auth.onAuthStateChanged(user => {
       if (user) { showDashboard(user); }
       else { showLogin(); }
@@ -288,12 +286,11 @@ function renderSections() {
 function dishRow(secId, idx, dish) {
   const thumbContent = dish.photo
     ? `<img src="${dish.photo}" alt="${dish.name}">`
-    : `<div class="thumb-empty"><i class="fas fa-camera"></i><br>Photo</div>`;
+    : `<div class="thumb-empty"><i class="fas fa-link"></i><br>URL</div>`;
   return `
     <div class="dish-row" data-sec="${secId}" data-idx="${idx}">
-      <div class="dish-thumb">
+      <div class="dish-thumb" onclick="promptPhoto('${secId}',${idx})" title="Cliquer pour ajouter/changer la photo" style="cursor:pointer">
         ${thumbContent}
-        <input type="file" accept="image/*" onchange="uploadPhoto(this,'${secId}',${idx})">
       </div>
       <div class="dish-fields">
         <input class="df-name" value="${dish.name}" onchange="updateField('${secId}',${idx},'name',this.value)" placeholder="Nom du plat">
@@ -334,22 +331,15 @@ function deleteDish(secId, idx) {
   if (items) { items.classList.add('open'); items.previousElementSibling.classList.add('open'); }
 }
 
-async function uploadPhoto(input, secId, idx) {
-  const file = input.files[0];
-  if (!file) return;
-
-  if (storage) {
-    const ref = storage.ref(`menu/${secId}/${Date.now()}_${file.name}`);
-    const snap = await ref.put(file);
-    const url = await snap.ref.getDownloadURL();
-    menuData[secId].dishes[idx].photo = url;
-  } else {
-    // Demo: use local URL
-    menuData[secId].dishes[idx].photo = URL.createObjectURL(file);
-  }
+function promptPhoto(secId, idx) {
+  const current = menuData[secId].dishes[idx].photo || '';
+  const url = prompt('Collez le lien de la photo :', current);
+  if (url === null) return;
+  menuData[secId].dishes[idx].photo = url.trim();
   renderSections();
   const items = document.getElementById(`sec-${secId}`);
   if (items) { items.classList.add('open'); items.previousElementSibling.classList.add('open'); }
+  document.getElementById('statusText').textContent = 'Modifications non sauvegardées';
 }
 
 async function saveAll() {
