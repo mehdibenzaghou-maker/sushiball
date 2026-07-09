@@ -29,7 +29,16 @@
           // text nodes
           document.querySelectorAll('[data-set]').forEach(el=>{
             const k=el.dataset.set;
-            if(S[k])el.textContent=S[k];
+            if(!S[k])return;
+            if(k==='hero_title'){
+              const t=S[k].trim();
+              let a,b;
+              if(t.includes(' ')){const i=t.lastIndexOf(' ');a=t.slice(0,i+1);b=t.slice(i+1);}
+              else{const cut=Math.ceil(t.length/2);a=t.slice(0,cut);b=t.slice(cut);}
+              el.innerHTML=a+'<span class="accent">'+b+'</span>';
+            }else{
+              el.textContent=S[k];
+            }
           });
           // hrefs (tel:, wa.me, instagram)
           document.querySelectorAll('[data-set-href]').forEach(el=>{
