@@ -65,7 +65,13 @@
       document.querySelectorAll('.dish').forEach(card=>{
         const nameEl=card.querySelector('.dish-name');
         if(!nameEl)return;
-        const m=byName[norm(nameEl.textContent)];
+        const key=norm(nameEl.textContent);
+        let m=byName[key];
+        if(!m){ // fuzzy: prefix/contains match
+          const keys=Object.keys(byName);
+          const hit=keys.find(k=>k===key)||keys.find(k=>k.startsWith(key)||key.startsWith(k))||keys.find(k=>k.includes(key)||key.includes(k));
+          if(hit)m=byName[hit];
+        }
         if(!m){misses.push(nameEl.textContent.trim());return;}
         hits++;
         // price
