@@ -8,7 +8,11 @@
     appId: "1:891422097707:web:7e72aba87e83cd84d5c56e"
   };
   function load(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
-  const norm=t=>t.replace(/\s+/g,' ').trim().toLowerCase();
+  const norm=t=>t
+    .replace(/\u0153/g,'oe').replace(/\u00e6/g,'ae')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/gi,' ')
+    .replace(/\s+/g,' ').trim().toLowerCase();
 
   async function init(){
     try{
@@ -53,15 +57,17 @@
       const snap=await db.collection('menu').get();
       const all=[];
       snap.forEach(doc=>{const s=doc.data();if(s.dishes)s.dishes.forEach(d=>all.push(d));});
-      if(!all.length)return;
+      if(!all.length){console.warn('[sync] Firestore menu vide');return;}
       const byName={};
       all.forEach(d=>{byName[norm(d.name)]=d;});
 
+      let hits=0,misses=[];
       document.querySelectorAll('.dish').forEach(card=>{
         const nameEl=card.querySelector('.dish-name');
         if(!nameEl)return;
         const m=byName[norm(nameEl.textContent)];
-        if(!m)return;
+        if(!m){misses.push(nameEl.textContent.trim());return;}
+        hits++;
         // price
         const pEl=card.querySelector('.dish-price');
         if(pEl&&m.price){pEl.innerHTML=Number(m.price).toLocaleString('fr')+' <span class="da">DA</span>';}
@@ -78,6 +84,7 @@
           if(dEl)dEl.textContent=m.desc;
         }
       });
+      console.log('[sync] plats mis \u00e0 jour:',hits, misses.length?('| introuvables: '+misses.join(', ')):'');
     }catch(e){console.log('firebase sync error',e);}
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
