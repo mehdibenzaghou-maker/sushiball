@@ -98,7 +98,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);min-
     <p>Panneau d'administration</p>
     <div class="field">
       <label>Email</label>
-      <input type="email" id="login-email" placeholder="admin@sushiball.com">
+      <input type="email" id="login-email" placeholder="sushiball0707">
     </div>
     <div class="field">
       <label>Mot de passe</label>
@@ -224,10 +224,10 @@ function doLogin() {
 
   if (!auth) {
     // Demo mode
-    if (email === 'demo@sushiball.com' && pass === 'demo123') {
+    if (email === 'sushiball0707' && pass === 'alg070726') {
       showDashboard({email});
     } else {
-      err.textContent = "Firebase non configuré. Utilisez demo@sushiball.com / demo123";
+      err.textContent = "Firebase non configuré. Utilisez vos identifiants administrateur";
       err.style.display = 'block';
     }
     return;
