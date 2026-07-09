@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B0B0F">
+<title>Bowls & Chirashi &mdash; Sushiball</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/sushiball%20logo.jpg" alt="Sushiball"></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="index.html">Accueil</a>
+  <a href="menu.html">Menu</a>
+  <a href="contact.html">Contact</a>
+</div>
+<div class="section-bar"><div class="section-bar-inner"><a href="soupes.html" class="sec-btn">Soupes</a><a href="entrees.html" class="sec-btn">Entrées</a><a href="salades.html" class="sec-btn">Salades</a><a href="snacks.html" class="sec-btn">Snacks</a><a href="bowls.html" class="sec-btn active">Bowls</a><a href="sashimi.html" class="sec-btn">Sashimi</a><a href="signatures.html" class="sec-btn">Signatures</a><a href="rolls.html" class="sec-btn">Rolls</a><a href="maki.html" class="sec-btn">Maki</a><a href="nigiri.html" class="sec-btn">Nigiri</a><a href="plats.html" class="sec-btn">Plats</a><a href="wok.html" class="sec-btn">Wok & Ramens</a></div></div>
+<section class="dishes-wrap" style="padding-top:40px">
+  <div class="sec-header"><p class="sec-eyebrow">Menu</p><div class="sec-jp">丼</div><h2 class="sec-title">Bowls & Chirashi</h2><div class="sec-line"></div></div>
+  <div class="dishes-grid">
+  </div><div class="section-divider">Poke Bowl</div><div class="dishes-grid"><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/poke%20bowl%20vege.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Poke Végé"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Poke Végé</div>
+      
+      <div class="dish-price">1200 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Poke Végé" data-price="1200" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/poke%20bowl%20poulet.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Poke Poulet"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Poke Poulet</div>
+      
+      <div class="dish-price">1300 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Poke Poulet" data-price="1300" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/poke%20bowl%20thon.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Poke Thon"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Poke Thon</div>
+      
+      <div class="dish-price">1700 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Poke Thon" data-price="1700" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/poke%20bowl%20crevette.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Poke Crevette"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Poke Crevette</div>
+      
+      <div class="dish-price">1800 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Poke Crevette" data-price="1800" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/poke%20bowl%20saumon.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Poke Saumon"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Poke Saumon</div>
+      
+      <div class="dish-price">2000 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Poke Saumon" data-price="2000" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div></div><div class="section-divider">Chirashi</div><div class="dishes-grid"><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/chirashi%20saumon.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Chirashi Saumon"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Chirashi Saumon</div>
+      
+      <div class="dish-price">2400 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Chirashi Saumon" data-price="2400" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/chirashi%20dorade.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Chirashi Dorade"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Chirashi Dorade</div>
+      
+      <div class="dish-price">2100 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Chirashi Dorade" data-price="2100" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/chirashi%20thon.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Chirashi Thon"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Chirashi Thon</div>
+      
+      <div class="dish-price">1800 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Chirashi Thon" data-price="1800" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div><div class="dish-card reveal">
+    <div class="dish-3d" data-glb="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/chirashi%20mix.glb">
+      <model-viewer camera-orbit="0deg 68deg auto" min-camera-orbit="auto 30deg auto" max-camera-orbit="auto 75deg auto" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" interaction-prompt="none" shadow-intensity="0.3" style="width:100%;height:100%;opacity:0" alt="Chirashi Mix"><button slot="ar-button" style="position:absolute;bottom:10px;right:10px;padding:7px 12px;border:1px solid rgba(232,224,212,.12);border-radius:8px;background:rgba(11,11,15,.6);color:var(--cream);font-size:.62rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px)"><i class="fas fa-cube" style="color:var(--red2)"></i>AR</button></model-viewer>
+      <div class="load-3d" onclick="loadDishViewer(this)"><i class="fas fa-cube"></i> 3D</div>
+    </div>
+    <div class="dish-info">
+      <div class="dish-name">Chirashi Mix</div>
+      
+      <div class="dish-price">2500 DA</div>
+      <div class="add-cart-wrap"><button class="add-cart-btn" data-name="Chirashi Mix" data-price="2500" onclick="addToCart(this)"><i class="fas fa-plus"></i> Ajouter</button></div>
+    </div>
+  </div>
+  </div>
+</section>
+<div class="cart-float" onclick="toggleCart()"><i class="fas fa-shopping-bag"></i><div class="cart-count"></div></div>
+<div class="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-panel">
+  <div class="cart-header"><h3><i class="fas fa-shopping-bag" style="color:var(--red2);margin-right:8px"></i>Panier</h3><button class="cart-close" onclick="toggleCart()">&times;</button></div>
+  <div class="cart-items"></div>
+  <div class="cart-footer"><div class="cart-total"><span class="ct-label">Total</span><span class="ct-val">0 DA</span></div><button class="cart-order-btn" onclick="openOrderForm()"><i class="fab fa-whatsapp"></i> Commander via WhatsApp</button></div>
+</div>
+<div class="order-modal">
+  <div class="order-modal-bg" onclick="closeOrderForm()"></div>
+  <div class="order-form">
+    <button class="form-close" onclick="closeOrderForm()">&times;</button>
+    <h3>Commander</h3>
+    <p>Remplissez vos informations</p>
+    <div class="form-group"><div class="form-label">Restaurant</div><div class="form-radio-group"><div class="form-radio"><input type="radio" name="resto" id="r-dely" value="Dely Ibrahim"><label for="r-dely"><i class="fas fa-store"></i><span>Dely Ibrahim</span></label></div><div class="form-radio"><input type="radio" name="resto" id="r-sidi" value="Sidi Yahia"><label for="r-sidi"><i class="fas fa-store"></i><span>Sidi Yahia</span></label></div></div></div>
+    <div class="form-group"><div class="form-label">Type de commande</div><div class="form-radio-group"><div class="form-radio"><input type="radio" name="otype" id="type-takeout" value="takeout"><label for="type-takeout"><i class="fas fa-bag-shopping"></i><span>Emporter</span></label></div><div class="form-radio"><input type="radio" name="otype" id="type-delivery" value="delivery"><label for="type-delivery"><i class="fas fa-motorcycle"></i><span>Livraison</span></label></div></div></div>
+    <div class="form-group"><div class="form-label">Nom</div><input class="form-input" id="o-name" placeholder="Votre nom"></div>
+    <div class="form-group"><div class="form-label">T&eacute;l&eacute;phone</div><input class="form-input" id="o-phone" type="tel" placeholder="0X XX XX XX XX"></div>
+    <div class="delivery-fields"><div class="form-group"><div class="form-label">Adresse de livraison</div><input class="form-input" id="o-addr" placeholder="Votre adresse"></div></div>
+    <button class="form-submit" onclick="submitOrder()"><i class="fab fa-whatsapp" style="font-size:1.1rem"></i> Envoyer la commande</button>
+  </div>
+</div>
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo"><img src="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/sushiball%20logo.jpg" alt="Sushiball"></div>
+      <div class="ft-tagline">Sushi &amp; Asian Food</div>
+      <p class="ft-sub">Dely Ibrahim &amp; Sidi Yahia</p>
+      <div class="ft-soc"><a href="https://www.instagram.com/sushiball.alger/" target="_blank"><i class="fab fa-instagram"></i></a><a href="tel:+213559018411"><i class="fas fa-phone"></i></a></div>
+    </div>
+    <div><div class="ft-hd">Menu</div><ul class="ft-links"><li><a href="soupes.html">Soupes</a></li><li><a href="entrees.html">Entrées</a></li><li><a href="salades.html">Salades</a></li><li><a href="snacks.html">Snacks</a></li><li><a href="bowls.html">Bowls</a></li><li><a href="sashimi.html">Sashimi</a></li></ul></div>
+    <div><div class="ft-hd">Restaurants</div><ul class="ft-links"><li>Dely Ibrahim</li><li>Sidi Yahia</li><li style="margin-top:10px"><a href="contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="ft-bottom"><p class="ft-copy">&copy; 2025 <span>Sushiball</span></p><p class="ft-copy">R&eacute;alis&eacute; avec <span>&hearts;</span></p></div>
+</footer>
+<script src="script.js"></script>
+<script src="firebase-sync.js"></script></body></html>
