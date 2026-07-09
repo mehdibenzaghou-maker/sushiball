@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin &mdash; Sushiball</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B0B0F;--bg2:#121218;--bg3:#1A1A22;--red:#C41E3A;--red2:#E63946;--gold:#D4AF37;--cream:#E8E0D4;--cream2:#D4CBC0;--gray:#6E6862;--radius:12px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh}
+
+/* Login */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{background:var(--bg2);border:1px solid rgba(196,30,58,.1);border-radius:var(--radius);padding:40px 36px;max-width:400px;width:100%;text-align:center}
+.login-box h1{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:6px}
+.login-box p{font-size:.78rem;color:var(--gray);margin-bottom:28px}
+.login-box .logo{width:80px;height:80px;border-radius:50%;margin:0 auto 20px;object-fit:cover}
+.field{margin-bottom:16px;text-align:left}
+.field label{display:block;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream2);margin-bottom:6px;font-weight:500}
+.field input{width:100%;padding:12px 16px;border-radius:8px;background:var(--bg3);border:1px solid rgba(232,224,212,.08);color:var(--cream);font-size:.85rem;font-family:'Inter',sans-serif}
+.field input:focus{outline:none;border-color:var(--red)}
+.login-btn{width:100%;padding:13px;border-radius:8px;background:linear-gradient(135deg,var(--red),#9B1B30);color:#fff;border:none;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:box-shadow .3s}
+.login-btn:hover{box-shadow:0 4px 18px rgba(196,30,58,.35)}
+.login-error{color:var(--red2);font-size:.75rem;margin-top:12px;display:none}
+
+/* Dashboard */
+.dashboard{display:none}
+.dash-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--bg2);border-bottom:1px solid rgba(196,30,58,.08);position:sticky;top:0;z-index:100}
+.dash-header h2{font-family:'Playfair Display',serif;font-size:1.2rem}
+.dash-header .dh-right{display:flex;align-items:center;gap:12px}
+.logout-btn{padding:8px 16px;border-radius:8px;background:rgba(196,30,58,.1);border:1px solid rgba(196,30,58,.15);color:var(--red2);font-size:.7rem;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.5px}
+.logout-btn:hover{background:rgba(196,30,58,.2)}
+
+/* Sections */
+.dash-body{max-width:1000px;margin:0 auto;padding:30px 20px}
+.section-block{margin-bottom:30px;background:var(--bg2);border:1px solid rgba(232,224,212,.04);border-radius:var(--radius);overflow:hidden}
+.section-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--bg3);cursor:pointer;transition:background .3s}
+.section-head:hover{background:rgba(196,30,58,.06)}
+.section-head h3{font-family:'Playfair Display',serif;font-size:1rem;display:flex;align-items:center;gap:8px}
+.section-head h3 .count{font-family:'Inter',sans-serif;font-size:.65rem;color:var(--gray);font-weight:400}
+.section-head .toggle-icon{color:var(--gray);transition:transform .3s}
+.section-head.open .toggle-icon{transform:rotate(180deg)}
+.section-items{display:none;padding:12px 16px}
+.section-items.open{display:block}
+
+/* Dish row */
+.dish-row{display:grid;grid-template-columns:60px 1fr 100px 80px 40px;gap:12px;align-items:center;padding:12px 8px;border-bottom:1px solid rgba(232,224,212,.03);transition:background .3s}
+.dish-row:hover{background:rgba(196,30,58,.03)}
+.dish-row:last-child{border-bottom:none}
+.dish-thumb{width:56px;height:56px;border-radius:8px;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.dish-thumb img{width:100%;height:100%;object-fit:cover}
+.dish-thumb .thumb-empty{font-size:.55rem;color:var(--gray);text-align:center;line-height:1.3}
+.dish-thumb input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.dish-fields{display:flex;flex-direction:column;gap:4px}
+.dish-fields input{background:transparent;border:none;color:var(--cream);font-family:'Inter',sans-serif;padding:4px 0;border-bottom:1px solid transparent;transition:border-color .3s}
+.dish-fields input:focus{outline:none;border-bottom-color:var(--red)}
+.dish-fields .df-name{font-size:.88rem;font-weight:500}
+.dish-fields .df-desc{font-size:.72rem;color:var(--gray)}
+.dish-price-input{background:var(--bg3);border:1px solid rgba(232,224,212,.06);border-radius:6px;padding:8px 10px;color:var(--gold);font-weight:600;font-size:.85rem;text-align:center;width:100%;font-family:'Inter',sans-serif}
+.dish-price-input:focus{outline:none;border-color:var(--red)}
+.save-indicator{font-size:.6rem;color:var(--gray);text-align:center;opacity:0;transition:opacity .3s}
+.save-indicator.saved{color:#25D366;opacity:1}
+.del-btn{width:32px;height:32px;border-radius:50%;background:rgba(196,30,58,.08);border:none;color:var(--red2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:background .3s}
+.del-btn:hover{background:rgba(196,30,58,.2)}
+
+/* Add dish */
+.add-dish-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;margin:8px 16px 16px;border-radius:8px;background:rgba(196,30,58,.06);border:1px dashed rgba(196,30,58,.15);color:var(--red2);font-size:.72rem;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.5px;transition:all .3s}
+.add-dish-btn:hover{background:rgba(196,30,58,.12);border-color:var(--red)}
+
+/* Status bar */
+.status-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 24px;background:var(--bg2);border-top:1px solid rgba(196,30,58,.08);display:flex;justify-content:space-between;align-items:center;z-index:100}
+.status-bar .status-text{font-size:.72rem;color:var(--gray)}
+.save-all-btn{padding:10px 24px;border-radius:8px;background:linear-gradient(135deg,var(--red),#9B1B30);color:#fff;border:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:6px;transition:box-shadow .3s}
+.save-all-btn:hover{box-shadow:0 4px 18px rgba(196,30,58,.35)}
+
+/* Setup notice */
+.setup-notice{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px}
+.setup-notice h4{color:var(--gold);font-size:.85rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.setup-notice p{font-size:.72rem;color:var(--cream2);line-height:1.7}
+.setup-notice code{background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:.7rem;color:var(--gold)}
+
+@media(max-width:768px){
+  .dish-row{grid-template-columns:50px 1fr 80px 36px;gap:8px}
+  .save-indicator{display:none}
+  .dash-body{padding:20px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN SCREEN ═══ -->
+<div class="login-wrap" id="loginScreen">
+  <div class="login-box">
+    <img src="https://pub-bedd07bf9a6c49d089ed853da4b9c7ef.r2.dev/sushiball%20logo.jpg" class="logo" alt="Sushiball">
+    <h1>Sushiball</h1>
+    <p>Panneau d'administration</p>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="admin@sushiball.com">
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pass" placeholder="••••••••">
+    </div>
+    <button class="login-btn" onclick="doLogin()"><i class="fas fa-lock" style="margin-right:6px"></i> Se connecter</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <h2><i class="fas fa-fish" style="color:var(--red2);margin-right:8px"></i> Sushiball Admin</h2>
+    <div class="dh-right">
+      <span id="userEmail" style="font-size:.7rem;color:var(--gray)"></span>
+      <button class="logout-btn" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i> Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="dash-body">
+    <div class="setup-notice">
+      <h4><i class="fas fa-wrench"></i> Configuration Firebase</h4>
+      <p>Pour activer ce panneau, créez un projet Firebase et remplacez la config dans <code>firebaseConfig</code> en bas de ce fichier. Activez <strong>Authentication</strong> (Email/Password) et <strong>Firestore Database</strong>. Créez un compte admin dans Firebase Auth, puis connectez-vous ici.</p>
+    </div>
+
+    <div id="sectionsContainer"></div>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-text" id="statusText">Prêt</div>
+    <button class="save-all-btn" onclick="saveAll()"><i class="fas fa-cloud-arrow-up"></i> Sauvegarder tout</button>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   FIREBASE CONFIG — REPLACE WITH YOUR OWN
+   ═══════════════════════════════════════════════════════ */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+let app, auth, db, storage;
+let menuData = {};
+
+// Default menu structure (used to seed Firestore on first run)
+const DEFAULT_MENU = {
+  "soupes": {
+    title: "Soupes", dishes: [
+      {name:"Tom-Yum Végé",desc:"",price:900,photo:"",glb:"tom%20yom%20vege.glb"},
+      {name:"Tom-Yum Poulet",desc:"",price:1200,photo:"",glb:"tom%20yom%20vege.glb"},
+      {name:"Tom-Yum Crevette",desc:"",price:1400,photo:"",glb:"tom%20yom%20vege.glb"},
+      {name:"Tom-Khan Végé",desc:"",price:1000,photo:"",glb:"tom%20yom%20vege.glb"},
+      {name:"Tom-Khan Poulet",desc:"",price:1300,photo:"",glb:"tom%20yom%20vege.glb"},
+    ]
+  },
+  "entrees": {
+    title: "Entrées", dishes: [
+      {name:"Nems Végé",desc:"03 PCS",price:650,photo:"",glb:"nems.glb"},
+      {name:"Nems Poulet",desc:"03 PCS",price:800,photo:"",glb:"nems.glb"},
+      {name:"Nems Crevette",desc:"03 PCS",price:1000,photo:"",glb:"nems.glb"},
+      {name:"Gyoza Poulet",desc:"04 PCS",price:950,photo:"",glb:"gyoza.glb"},
+      {name:"Gyoza Crevette",desc:"04 PCS",price:1300,photo:"",glb:"gyoza.glb"},
+      {name:"Dynamite Shrimp",desc:"Crevettes crunchy épicées",price:1900,photo:"",glb:"crevette%20crunchy.glb"},
+    ]
+  },
+  "bowls": {
+    title: "Bowls & Chirashi", dishes: [
+      {name:"Poke Végé",desc:"",price:1200,photo:"",glb:"poke%20bowl%20vege.glb"},
+      {name:"Poke Saumon",desc:"",price:2000,photo:"",glb:"poke%20bowl%20saumon.glb"},
+      {name:"Chirashi Saumon",desc:"",price:2400,photo:"",glb:"chirashi%20saumon.glb"},
+      {name:"Chirashi Mix",desc:"",price:2500,photo:"",glb:"chirashi%20mix.glb"},
+    ]
+  }
+  // Add more sections as needed — the owner only sees name/desc/price/photo
+};
+
+function initFirebase() {
+  try {
+    app = firebase.initializeApp(firebaseConfig);
+    auth = firebase.auth();
+    db = firebase.firestore();
+    storage = firebase.storage();
+    auth.onAuthStateChanged(user => {
+      if (user) { showDashboard(user); }
+      else { showLogin(); }
+    });
+  } catch(e) {
+    console.log("Firebase not configured yet — running in demo mode");
+    // Demo mode: show dashboard without auth
+  }
+}
+
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+}
+
+function showDashboard(user) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  if (user) document.getElementById('userEmail').textContent = user.email;
+  loadMenu();
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const err = document.getElementById('loginError');
+  if (!email || !pass) { err.textContent = "Remplissez tous les champs"; err.style.display = 'block'; return; }
+
+  if (!auth) {
+    // Demo mode
+    if (email === 'demo@sushiball.com' && pass === 'demo123') {
+      showDashboard({email});
+    } else {
+      err.textContent = "Firebase non configuré. Utilisez demo@sushiball.com / demo123";
+      err.style.display = 'block';
+    }
+    return;
+  }
+
+  auth.signInWithEmailAndPassword(email, pass)
+    .then(() => { err.style.display = 'none'; })
+    .catch(e => { err.textContent = "Email ou mot de passe incorrect"; err.style.display = 'block'; });
+}
+
+function doLogout() {
+  if (auth) auth.signOut();
+  else showLogin();
+}
+
+async function loadMenu() {
+  if (db) {
+    const snap = await db.collection('menu').get();
+    if (snap.empty) {
+      // First run: seed with defaults
+      for (const [id, data] of Object.entries(DEFAULT_MENU)) {
+        await db.collection('menu').doc(id).set(data);
+      }
+      menuData = {...DEFAULT_MENU};
+    } else {
+      snap.forEach(doc => { menuData[doc.id] = doc.data(); });
+    }
+  } else {
+    // Demo mode
+    menuData = {...DEFAULT_MENU};
+  }
+  renderSections();
+}
+
+function renderSections() {
+  const container = document.getElementById('sectionsContainer');
+  container.innerHTML = '';
+
+  for (const [secId, sec] of Object.entries(menuData)) {
+    const dishes = sec.dishes || [];
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    block.innerHTML = `
+      <div class="section-head" onclick="toggleSection(this)">
+        <h3><i class="fas fa-fish" style="color:var(--red2)"></i> ${sec.title} <span class="count">(${dishes.length} plats)</span></h3>
+        <i class="fas fa-chevron-down toggle-icon"></i>
+      </div>
+      <div class="section-items" id="sec-${secId}">
+        ${dishes.map((d, i) => dishRow(secId, i, d)).join('')}
+        <div class="add-dish-btn" onclick="addDish('${secId}')"><i class="fas fa-plus"></i> Ajouter un plat</div>
+      </div>
+    `;
+    container.appendChild(block);
+  }
+}
+
+function dishRow(secId, idx, dish) {
+  const thumbContent = dish.photo
+    ? `<img src="${dish.photo}" alt="${dish.name}">`
+    : `<div class="thumb-empty"><i class="fas fa-camera"></i><br>Photo</div>`;
+  return `
+    <div class="dish-row" data-sec="${secId}" data-idx="${idx}">
+      <div class="dish-thumb">
+        ${thumbContent}
+        <input type="file" accept="image/*" onchange="uploadPhoto(this,'${secId}',${idx})">
+      </div>
+      <div class="dish-fields">
+        <input class="df-name" value="${dish.name}" onchange="updateField('${secId}',${idx},'name',this.value)" placeholder="Nom du plat">
+        <input class="df-desc" value="${dish.desc || ''}" onchange="updateField('${secId}',${idx},'desc',this.value)" placeholder="Description">
+      </div>
+      <input class="dish-price-input" type="number" value="${dish.price || ''}" onchange="updateField('${secId}',${idx},'price',+this.value)" placeholder="Prix">
+      <div class="save-indicator" id="ind-${secId}-${idx}">✓</div>
+      <button class="del-btn" onclick="deleteDish('${secId}',${idx})" title="Supprimer"><i class="fas fa-trash"></i></button>
+    </div>
+  `;
+}
+
+function toggleSection(head) {
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+
+function updateField(secId, idx, field, value) {
+  menuData[secId].dishes[idx][field] = value;
+  const ind = document.getElementById(`ind-${secId}-${idx}`);
+  if (ind) { ind.classList.add('saved'); setTimeout(() => ind.classList.remove('saved'), 1500); }
+  document.getElementById('statusText').textContent = 'Modifications non sauvegardées';
+}
+
+function addDish(secId) {
+  menuData[secId].dishes.push({name: 'Nouveau plat', desc: '', price: 0, photo: '', glb: ''});
+  renderSections();
+  // Open the section
+  const items = document.getElementById(`sec-${secId}`);
+  if (items) { items.classList.add('open'); items.previousElementSibling.classList.add('open'); }
+}
+
+function deleteDish(secId, idx) {
+  if (!confirm('Supprimer ce plat ?')) return;
+  menuData[secId].dishes.splice(idx, 1);
+  renderSections();
+  const items = document.getElementById(`sec-${secId}`);
+  if (items) { items.classList.add('open'); items.previousElementSibling.classList.add('open'); }
+}
+
+async function uploadPhoto(input, secId, idx) {
+  const file = input.files[0];
+  if (!file) return;
+
+  if (storage) {
+    const ref = storage.ref(`menu/${secId}/${Date.now()}_${file.name}`);
+    const snap = await ref.put(file);
+    const url = await snap.ref.getDownloadURL();
+    menuData[secId].dishes[idx].photo = url;
+  } else {
+    // Demo: use local URL
+    menuData[secId].dishes[idx].photo = URL.createObjectURL(file);
+  }
+  renderSections();
+  const items = document.getElementById(`sec-${secId}`);
+  if (items) { items.classList.add('open'); items.previousElementSibling.classList.add('open'); }
+}
+
+async function saveAll() {
+  const btn = document.querySelector('.save-all-btn');
+  const status = document.getElementById('statusText');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sauvegarde...';
+
+  if (db) {
+    for (const [id, data] of Object.entries(menuData)) {
+      await db.collection('menu').doc(id).set(data);
+    }
+  }
+
+  btn.innerHTML = '<i class="fas fa-check"></i> Sauvegardé !';
+  status.textContent = 'Toutes les modifications ont été sauvegardées';
+  setTimeout(() => { btn.innerHTML = '<i class="fas fa-cloud-arrow-up"></i> Sauvegarder tout'; }, 2000);
+}
+
+// Init
+initFirebase();
+</script>
+</body>
+</html>
