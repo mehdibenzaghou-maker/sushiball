@@ -270,9 +270,9 @@ const DEFAULT_MENU = {
   },
   "snacks": {
     title: "Snacks & Petites Faims", dishes: [
-      {name:"Yakitori Poulet",desc:"03 PCS, riz blanc",price:1100,photo:"",glb:"yakitori%20poulet.glb"},
-      {name:"Yakitori Bœuf Fromage",desc:"03 PCS, riz blanc",price:1350,photo:"",glb:"yakitori%20boeuf.glb"},
-      {name:"Yakitori Saumon",desc:"03 PCS, riz blanc",price:1650,photo:"",glb:"yakitori%20saumon.glb"},
+      {name:"Yakitori Poulet 03 PCS",desc:"Riz blanc",price:1100,photo:"",glb:"yakitori%20poulet.glb"},
+      {name:"Yakitori Bœuf Fromage 03 PCS",desc:"Riz blanc",price:1350,photo:"",glb:"yakitori%20boeuf.glb"},
+      {name:"Yakitori Saumon 03 PCS",desc:"Riz blanc",price:1650,photo:"",glb:"yakitori%20saumon.glb"},
       {name:"Bao Poulet",desc:"",price:1600,photo:"",glb:"la%20bao%20poulet.glb"},
       {name:"Bao Crevette",desc:"",price:1800,photo:"",glb:""},
       {name:"Club Poulet",desc:"02 PCS",price:1400,photo:"",glb:"club%20sandwich.glb"},
@@ -543,6 +543,14 @@ async function loadMenu() {
       // add any new default sections missing from Firestore
       for (const [id, data] of Object.entries(DEFAULT_MENU)) {
         if (!menuData[id]) { menuData[id] = JSON.parse(JSON.stringify(data)); await db.collection('menu').doc(id).set(data); }
+      }
+      // migration: unique names for Petites Faims yakitoris (avoid collision with Grillades)
+      if (menuData.snacks && menuData.snacks.dishes) {
+        let migrated = false;
+        menuData.snacks.dishes.forEach(d => {
+          if (['Yakitori Poulet','Yakitori Bœuf Fromage','Yakitori Saumon'].includes(d.name)) { d.name += ' 03 PCS'; migrated = true; }
+        });
+        if (migrated) await db.collection('menu').doc('snacks').set(menuData.snacks, {merge: true});
       }
     }
   } else {
